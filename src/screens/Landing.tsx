@@ -11,7 +11,7 @@ export const Landing = () => {
         }}>
         <Text>HELLO</Text>
         <Text style={typography.h2SemiBold}>Welcome to my app</Text>
-        <Button />
+        {/* <Button /> */}
       </View>
     </SafeAreaView>
   );
