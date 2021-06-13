@@ -13,6 +13,7 @@ pod 'Firebase/Analytics'
 # For example, to use Firebase Authentication and Cloud Firestore
 pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
+pod 'GoogleSignIn'
 
 target 'psych' do
   config = use_native_modules!
