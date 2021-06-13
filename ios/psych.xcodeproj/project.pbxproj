@@ -14,6 +14,7 @@
 		51075BC92B1EBA8754D8FC2D /* libPods-psych.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67390674B1CC3EFA946AADC3 /* libPods-psych.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D819DBA42B4C5C9E85D7B0B9 /* libPods-psych-psychTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F539BE237C8A202EBEDCF3B /* libPods-psych-psychTests.a */; };
+		E25D81A72676677500248B79 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E25D81A62676677500248B79 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		7955F652F3C40DA7060FA7B6 /* Pods-psych-psychTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-psych-psychTests.release.xcconfig"; path = "Target Support Files/Pods-psych-psychTests/Pods-psych-psychTests.release.xcconfig"; sourceTree = "<group>"; };
 		7F539BE237C8A202EBEDCF3B /* libPods-psych-psychTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-psych-psychTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = psych/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E25D81A62676677500248B79 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		FE74756E0C8DD453D6E91AFF /* Pods-psych-psychTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-psych-psychTests.debug.xcconfig"; path = "Target Support Files/Pods-psych-psychTests/Pods-psych-psychTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,6 +88,7 @@
 		13B07FAE1A68108700A75B9A /* psych */ = {
 			isa = PBXGroup;
 			children = (
+				E25D81A62676677500248B79 /* GoogleService-Info.plist */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -145,7 +148,6 @@
 				FE74756E0C8DD453D6E91AFF /* Pods-psych-psychTests.debug.xcconfig */,
 				7955F652F3C40DA7060FA7B6 /* Pods-psych-psychTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -245,6 +247,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				E25D81A72676677500248B79 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
