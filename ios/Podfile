@@ -15,6 +15,9 @@ pod 'Firebase/Auth'
 pod 'Firebase/Firestore'
 pod 'GoogleSignIn'
 
+# Add icons
+pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
 target 'psych' do
   config = use_native_modules!
 

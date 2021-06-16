@@ -1,24 +1,17 @@
+import auth from '@react-native-firebase/auth';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
-  TextInput,
 } from 'react-native';
-import {ThemeProvider, Button as LoginButton} from 'react-native-elements';
-import {spacing, typography} from '../styles';
-import {
-  AppleButton,
-  appleAuth,
-} from '@invertase/react-native-apple-authentication';
-import auth from '@react-native-firebase/auth';
-import {Button} from 'react-native';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-} from '@react-native-google-signin/google-signin';
+import {Button, ThemeProvider} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {colors, spacing, typography, widthPct} from '../styles';
 import {
   authWithEmail,
   authWithGoogle,
@@ -44,13 +37,16 @@ export const Landing = () => {
     if (initializing) setInitializing(false);
   };
 
+  const handleLogin = () => {
+    // LOGIN
+  };
+
   useEffect(() => {
     const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
     return subscriber; // unsubscribe on unmount
   }, []);
 
   const myUser = auth().currentUser;
-  console.log('myUser', myUser);
 
   if (initializing) return null;
 
@@ -64,12 +60,9 @@ export const Landing = () => {
   if (!user) {
     return (
       <ThemeProvider theme={theme}>
-        <SafeAreaView style={{flex: 1}}>
-          <View
-            style={{
-              paddingHorizontal: spacing.large,
-            }}>
-            <Text>Sign up</Text>
+        <SafeAreaView style={styles.container}>
+          <View style={{paddingHorizontal: spacing.large}}>
+            <Text style={styles.title}>Sign up</Text>
             <TextInput
               onChangeText={value => setUsername(value)}
               placeholder="Enter email"
@@ -82,36 +75,67 @@ export const Landing = () => {
               value={password}
               style={styles.input}
             />
-            <LoginButton
-              containerStyle={{borderRadius: 50, marginTop: spacing.huge}}
+            <Button
+              containerStyle={styles.buttonContainer}
               buttonStyle={styles.buttonStyle}
-              title={'Login'}
+              titleStyle={{fontSize: 15, fontWeight: 'bold'}}
+              title={'Sign up'}
               onPress={() => authWithEmail(username, password)}
             />
-            <View
-              style={{
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text>Or connect with</Text>
-              <AppleButton
-                buttonStyle={AppleButton.Style.BLACK}
-                buttonType={AppleButton.Type.SIGN_IN}
-                cornerRadius={50}
-                style={{
-                  width: 160,
-                  height: 45,
-                }}
-                onPress={() =>
-                  onAppleButtonPress().then(() =>
-                    console.log('Apple sign-in complete!'),
-                  )
-                }
-              />
-              <GoogleSigninButton
-                onPress={authWithGoogle}
-                color={GoogleSigninButton.Color.Dark}
-              />
+            <View style={styles.bottomContainer}>
+              <Text style={[styles.centeredWhiteText]}>Or connect with</Text>
+              <View style={styles.buttonsContainer}>
+                <Button
+                  containerStyle={{borderRadius: 50, width: widthPct(35)}}
+                  buttonStyle={[
+                    styles.buttonStyle,
+                    {backgroundColor: 'rgba(219, 50, 54, 1)'},
+                  ]}
+                  titleStyle={styles.buttonTitle}
+                  title={
+                    <>
+                      <Icon name="google" size={20} color="white" />
+                      <Text style={styles.buttonText}>Google</Text>
+                    </>
+                  }
+                  onPress={authWithGoogle}
+                />
+                <Button
+                  containerStyle={{borderRadius: 50, width: widthPct(35)}}
+                  buttonStyle={[
+                    styles.buttonStyle,
+                    {backgroundColor: 'rgba(0, 0, 0, 1)'},
+                  ]}
+                  titleStyle={styles.buttonTitle}
+                  title={
+                    <>
+                      <Icon name="apple" size={20} color="white" />
+                      <Text style={styles.buttonText}> Apple</Text>
+                    </>
+                  }
+                  onPress={() =>
+                    onAppleButtonPress().then(() =>
+                      console.log('Apple sign-in complete!'),
+                    )
+                  }
+                />
+              </View>
+              <Text
+                style={[
+                  styles.centeredWhiteText,
+                  {paddingVertical: spacing.small},
+                ]}>
+                Already have an account?
+              </Text>
+              <TouchableOpacity onPress={handleLogin}>
+                <Text
+                  style={[
+                    styles.centeredWhiteText,
+                    {color: 'rgba(116,124,204,1)'},
+                  ]}>
+                  Log in
+                </Text>
+              </TouchableOpacity>
             </View>
           </View>
         </SafeAreaView>
@@ -133,18 +157,56 @@ export const Landing = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'rgba(173,197,248,255)',
+  },
+  title: {
+    color: colors.white,
+    fontWeight: 'bold',
+    fontSize: 30,
+    textAlign: 'center',
+    paddingVertical: spacing.huge,
+  },
   text: {
     ...typography.h6,
     marginBottom: spacing.base,
   },
   input: {
-    borderWidth: 1,
+    backgroundColor: 'white',
     borderRadius: 50,
     paddingVertical: spacing.baseSmall,
     paddingHorizontal: spacing.base,
   },
+  bottomContainer: {
+    justifyContent: 'center',
+    marginTop: widthPct(20),
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: spacing.base,
+  },
+  buttonContainer: {
+    borderRadius: 50,
+    marginTop: spacing.huge,
+  },
   buttonStyle: {
     backgroundColor: 'rgba(116,124,204,1)',
     borderRadius: 50,
+  },
+  buttonTitle: {
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
+  buttonText: {
+    fontWeight: 'bold',
+    color: 'white',
+    paddingLeft: spacing.small,
+  },
+  centeredWhiteText: {
+    textAlign: 'center',
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
