@@ -24,7 +24,7 @@ GoogleSignin.configure({
     '32178263078-bmd8uo421uri8vi23p5fd5l4ospqimk4.apps.googleusercontent.com',
 });
 
-export const Landing = ({navigation}) => {
+export const Login = ({navigation}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -38,7 +38,7 @@ export const Landing = ({navigation}) => {
   };
 
   const handleLogin = () => {
-    navigation.navigate('Login');
+    navigation.goBack();
   };
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export const Landing = ({navigation}) => {
       <ThemeProvider theme={theme}>
         <SafeAreaView style={styles.container}>
           <View style={{paddingHorizontal: spacing.large}}>
-            <Text style={styles.title}>Sign up</Text>
+            <Text style={styles.title}>Login</Text>
             <TextInput
               onChangeText={value => setUsername(value)}
               placeholder="Enter email"
@@ -79,7 +79,7 @@ export const Landing = ({navigation}) => {
               containerStyle={styles.buttonContainer}
               buttonStyle={styles.buttonStyle}
               titleStyle={{fontSize: 15, fontWeight: 'bold'}}
-              title={'Sign up'}
+              title={'Login'}
               onPress={() => authWithEmail(username, password)}
             />
             <View style={styles.bottomContainer}>
@@ -125,7 +125,7 @@ export const Landing = ({navigation}) => {
                   styles.centeredWhiteText,
                   {paddingVertical: spacing.small},
                 ]}>
-                Already have an account?
+                Don't have an account yet?
               </Text>
               <TouchableOpacity onPress={handleLogin}>
                 <Text
@@ -133,7 +133,7 @@ export const Landing = ({navigation}) => {
                     styles.centeredWhiteText,
                     {color: 'rgba(116,124,204,1)'},
                   ]}>
-                  Log in
+                  Sign up
                 </Text>
               </TouchableOpacity>
             </View>

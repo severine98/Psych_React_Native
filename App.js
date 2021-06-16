@@ -5,16 +5,27 @@
  * @format
  * @flow strict-local
  */
-
+import 'react-native-gesture-handler';
 import React from 'react';
 import {StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Landing} from './src/screens';
+import {Landing, Login} from './src/screens';
+import {createStackNavigator} from '@react-navigation/stack';
 
 const App = () => {
+  const Stack = createStackNavigator();
   return (
     <SafeAreaProvider>
-      <Landing />
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}>
+          <Stack.Screen name="Landing" component={Landing} />
+          <Stack.Screen name="Login" component={Login} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 };
