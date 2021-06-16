@@ -24,7 +24,7 @@ GoogleSignin.configure({
     '32178263078-bmd8uo421uri8vi23p5fd5l4ospqimk4.apps.googleusercontent.com',
 });
 
-export const Landing = () => {
+export const SignUp = ({navigation}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();
@@ -38,7 +38,7 @@ export const Landing = () => {
   };
 
   const handleLogin = () => {
-    // LOGIN
+    navigation.navigate('Login');
   };
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export const Landing = () => {
                   containerStyle={{borderRadius: 50, width: widthPct(35)}}
                   buttonStyle={[
                     styles.buttonStyle,
-                    {backgroundColor: 'rgba(219, 50, 54, 1)'},
+                    {backgroundColor: 'rgba(72, 133, 237, 1)'},
                   ]}
                   titleStyle={styles.buttonTitle}
                   title={
