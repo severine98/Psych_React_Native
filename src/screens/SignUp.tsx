@@ -24,7 +24,7 @@ GoogleSignin.configure({
     '32178263078-bmd8uo421uri8vi23p5fd5l4ospqimk4.apps.googleusercontent.com',
 });
 
-export const Landing = ({navigation}) => {
+export const SignUp = ({navigation}) => {
   // Set an initializing state whilst Firebase connects
   const [initializing, setInitializing] = useState(true);
   const [user, setUser] = useState();

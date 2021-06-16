@@ -10,7 +10,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {Landing, Login} from './src/screens';
+import {SignUp, Login} from './src/screens';
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -21,7 +21,7 @@ const App = () => {
           screenOptions={{
             headerShown: false,
           }}>
-          <Stack.Screen name="Landing" component={Landing} />
+          <Stack.Screen name="SignUp" component={SignUp} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
