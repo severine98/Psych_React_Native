@@ -7,24 +7,47 @@
  */
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import React from 'react';
+import React, {useState} from 'react';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
-import {SignUp, Login} from './src/screens';
+import {
+  AuthContext,
+  useAuthenticationContext,
+} from './src/contexts/AuthContext';
+import {IntroApp, Login, SignUp} from './src/screens';
 
 const App = () => {
   const Stack = createStackNavigator();
+  const context = useAuthenticationContext();
+  const [hasAuth, setHasAuth] = useState(false);
+
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}>
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AuthContext.Provider value={context}>
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}>
+            {!hasAuth ? (
+              <>
+                <Stack.Screen
+                  name="SignUp"
+                  component={SignUp}
+                  initialParams={{setHasAuth}}
+                />
+                <Stack.Screen name="Login" component={Login} />
+              </>
+            ) : (
+              <Stack.Screen
+                name="Intro"
+                component={IntroApp}
+                initialParams={{setHasAuth}}
+              />
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthContext.Provider>
     </SafeAreaProvider>
   );
 };

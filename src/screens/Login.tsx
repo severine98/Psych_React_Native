@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Button, ThemeProvider} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {AuthContext} from '../contexts/AuthContext';
 import {colors, spacing, typography, widthPct} from '../styles';
 import {
   authWithEmail,
@@ -31,10 +32,13 @@ export const Login = ({navigation}) => {
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
 
+  const {setAuthenticationContext} = useContext(AuthContext);
+
   // Handle user state changes
   const onAuthStateChanged = user => {
     setUser(user);
     if (initializing) setInitializing(false);
+    if (user) setAuthenticationContext({isAuthenticated: true});
   };
 
   const handleLogin = () => {
@@ -57,109 +61,92 @@ export const Login = ({navigation}) => {
     },
   };
 
-  if (!user) {
-    return (
-      <ThemeProvider theme={theme}>
-        <SafeAreaView style={styles.container}>
-          <View style={{paddingHorizontal: spacing.large}}>
-            <Text style={styles.title}>Login</Text>
-            <TextInput
-              onChangeText={value => setUsername(value)}
-              placeholder="Enter email"
-              value={username}
-              style={[styles.input, {marginBottom: spacing.base}]}
-            />
-            <TextInput
-              onChangeText={value => setPassword(value)}
-              placeholder="Enter password"
-              value={password}
-              style={styles.input}
-            />
-            <Button
-              containerStyle={styles.buttonContainer}
-              buttonStyle={styles.buttonStyle}
-              titleStyle={{fontSize: 15, fontWeight: 'bold'}}
-              title={'Login'}
-              onPress={() => authWithEmail(username, password)}
-            />
-            <View style={styles.bottomContainer}>
-              <Text style={[styles.centeredWhiteText]}>Or connect with</Text>
-              <View style={styles.buttonsContainer}>
-                <Button
-                  containerStyle={{borderRadius: 50, width: widthPct(35)}}
-                  buttonStyle={[
-                    styles.buttonStyle,
-                    {backgroundColor: 'rgba(72, 133, 237, 1)'},
-                  ]}
-                  titleStyle={styles.buttonTitle}
-                  title={
-                    <>
-                      <Icon name="google" size={20} color="white" />
-                      <Text style={styles.buttonText}>Google</Text>
-                    </>
-                  }
-                  onPress={authWithGoogle}
-                />
-                <Button
-                  containerStyle={{borderRadius: 50, width: widthPct(35)}}
-                  buttonStyle={[
-                    styles.buttonStyle,
-                    {backgroundColor: 'rgba(0, 0, 0, 1)'},
-                  ]}
-                  titleStyle={styles.buttonTitle}
-                  title={
-                    <>
-                      <Icon name="apple" size={20} color="white" />
-                      <Text style={styles.buttonText}> Apple</Text>
-                    </>
-                  }
-                  onPress={() =>
-                    onAppleButtonPress().then(() =>
-                      console.log('Apple sign-in complete!'),
-                    )
-                  }
-                />
-              </View>
-              <Text
-                style={[
-                  styles.centeredWhiteText,
-                  {paddingVertical: spacing.small},
-                ]}>
-                Don't have an account yet?
-              </Text>
-              <TouchableOpacity onPress={handleLogin}>
-                <Text
-                  style={[
-                    styles.centeredWhiteText,
-                    {color: 'rgba(116,124,204,1)'},
-                  ]}>
-                  Sign up
-                </Text>
-              </TouchableOpacity>
+  return (
+    <ThemeProvider theme={theme}>
+      <SafeAreaView style={styles.container}>
+        <View style={{paddingHorizontal: spacing.large}}>
+          <Text style={styles.title}>Login</Text>
+          <TextInput
+            onChangeText={value => setUsername(value)}
+            placeholder="Enter email"
+            value={username}
+            style={[styles.input, {marginBottom: spacing.base}]}
+          />
+          <TextInput
+            onChangeText={value => setPassword(value)}
+            placeholder="Enter password"
+            value={password}
+            style={styles.input}
+          />
+          <Button
+            containerStyle={styles.buttonContainer}
+            buttonStyle={styles.buttonStyle}
+            titleStyle={{fontSize: 15, fontWeight: 'bold'}}
+            title={'Login'}
+            onPress={() => authWithEmail(username, password)}
+          />
+          <View style={styles.bottomContainer}>
+            <Text style={[styles.centeredWhiteText]}>Or connect with</Text>
+            <View style={styles.buttonsContainer}>
+              <Button
+                containerStyle={{borderRadius: 50, width: widthPct(35)}}
+                buttonStyle={[
+                  styles.buttonStyle,
+                  {backgroundColor: colors.google},
+                ]}
+                titleStyle={styles.buttonTitle}
+                title={
+                  <>
+                    <Icon name="google" size={20} color="white" />
+                    <Text style={styles.buttonText}>Google</Text>
+                  </>
+                }
+                onPress={authWithGoogle}
+              />
+              <Button
+                containerStyle={{borderRadius: 50, width: widthPct(35)}}
+                buttonStyle={[
+                  styles.buttonStyle,
+                  {backgroundColor: colors.black},
+                ]}
+                titleStyle={styles.buttonTitle}
+                title={
+                  <>
+                    <Icon name="apple" size={20} color="white" />
+                    <Text style={styles.buttonText}> Apple</Text>
+                  </>
+                }
+                onPress={() =>
+                  onAppleButtonPress().then(() =>
+                    console.log('Apple sign-in complete!'),
+                  )
+                }
+              />
             </View>
+            <Text
+              style={[
+                styles.centeredWhiteText,
+                {paddingVertical: spacing.small},
+              ]}>
+              Don't have an account yet?
+            </Text>
+            <TouchableOpacity onPress={handleLogin}>
+              <Text
+                style={[styles.centeredWhiteText, {color: colors.purpleDark}]}>
+                Sign up
+              </Text>
+            </TouchableOpacity>
           </View>
-        </SafeAreaView>
-      </ThemeProvider>
-    );
-  }
-
-  {
-    if (user)
-      return (
-        <View>
-          <Text>YOU ARE SIGNED IN WITH {user.email}</Text>
-          <TouchableOpacity onPress={signOut}>
-            <Text>SIGN OUT</Text>
-          </TouchableOpacity>
         </View>
-      );
-  }
+      </SafeAreaView>
+    </ThemeProvider>
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'rgba(173,197,248,255)',
+    backgroundColor: colors.purpleLight,
   },
   title: {
     color: colors.white,
@@ -192,7 +179,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.huge,
   },
   buttonStyle: {
-    backgroundColor: 'rgba(116,124,204,1)',
+    backgroundColor: colors.purpleDark,
     borderRadius: 50,
   },
   buttonTitle: {
