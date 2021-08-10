@@ -7,7 +7,7 @@ export const IntroApp = ({navigation, route}) => {
   const name = 'Severine';
 
   const handleNext = async () => {
-    // GO TO FF
+    navigation.navigate('IntroCarouselForm');
   };
 
   return (

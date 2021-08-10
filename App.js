@@ -14,7 +14,7 @@ import {
   AuthContext,
   useAuthenticationContext,
 } from './src/contexts/AuthContext';
-import {IntroApp, Login, SignUp} from './src/screens';
+import {IntroApp, Login, SignUp, IntroCarouselForm} from './src/screens';
 
 const App = () => {
   const Stack = createStackNavigator();
@@ -39,11 +39,17 @@ const App = () => {
                 <Stack.Screen name="Login" component={Login} />
               </>
             ) : (
-              <Stack.Screen
-                name="Intro"
-                component={IntroApp}
-                initialParams={{setHasAuth}}
-              />
+              <>
+                <Stack.Screen
+                  name="Intro"
+                  component={IntroApp}
+                  initialParams={{setHasAuth}}
+                />
+                <Stack.Screen
+                  name="IntroCarouselForm"
+                  component={IntroCarouselForm}
+                />
+              </>
             )}
           </Stack.Navigator>
         </NavigationContainer>
